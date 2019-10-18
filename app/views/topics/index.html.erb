@@ -12,13 +12,27 @@
               <%= link_to favorites_path(topic_id: topic.id), method: :post do %>
                 <%= image_tag 'icons/heart-black.png', class: 'topic-index-icon' %>
               <% end %>
+            <% else %>
+              <%= link_to favorites_path(topic_id: topic.id), method: :delete do %>
+                <%= image_tag 'icons/heart-black.png', class: 'red-heart' %>
+              <% end %>
             <% end %>
+            <%= topic.favorites.count %>
             <%= link_to comments_new_path(topic_id: topic.id) do %>
               <%= image_tag 'icons/comment.png', class: 'topic-index-icon' %>
             <% end %>
             <p class="topic-text">
               <%= topic.description %>
             </p>
+            <div class="topic-comment">
+              <h2>
+                <%= "コメント" %>
+              </h2>
+              <% comment = Comment.where(topic_id: topic.id) %>
+              <% comment.each do |c| %>
+                <%= c.content %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
